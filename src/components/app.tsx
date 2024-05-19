@@ -1,23 +1,17 @@
 import { h } from 'preact';
-import { Route, Router } from 'preact-router';
+import { signal } from "@preact/signals";
 
-import Header from './header';
+const count = signal(0);
 
-// Code-splitting is automated for `routes` directory
-import Home from '../routes/home';
-import Profile from '../routes/profile';
+const App = () => {
+  const increment = () => count.value++;
 
-const App = () => (
-	<div id="app">
-		<Header />
-		<main>
-			<Router>
-				<Route path="/" component={Home} />
-				<Route path="/profile/" component={Profile} user="me" />
-				<Route path="/profile/:user" component={Profile} />
-			</Router>
-		</main>
-	</div>
-);
+  return (
+    <div id="app">
+      <h1>Count: {count.value}</h1>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+};
 
 export default App;
